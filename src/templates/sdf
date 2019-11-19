@@ -1,0 +1,51 @@
+import React from "react"
+import { graphql } from "gatsby"
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Layout from "../components/layout"
+
+export const query = graphql`
+  query($slug: String!) {
+    contentfulBlogPost(slug: {eq: $slug}) {
+        title
+        publishedDate(formatString: "MMMM DD, YYYY")
+        body {
+          json
+        }
+    }
+  }
+`
+
+const Blog = props => {
+  function renderMedia(file) {
+    console.log(file);
+    
+     if (file.contentType === 'image/jpeg') {
+      return (<img src={file.url} />)
+    } else {
+      return (<p>Unknown content type</p>)
+    }
+  }
+  let options = {
+    renderNode: {
+      'embedded-asset-block': (node) => {
+        let file = node.data.target.fields.file
+        // I'm using react so it was easier for me to use JSX for what I was doing
+        // here your renderMedia function could just return DOM strings and
+        // the renderToStaticMarkup function can be ignored (it's react specific)
+        let jsx = renderMedia(file.ru)
+        let markup = renderToStaticMarkup(jsx)
+        return markup
+      }
+    }
+  }
+  return (
+    <Layout>
+      <h1>{props.data.contentfulBlogPost.title}</h1>
+      <p>{props.data.contentfulBlogPost.publishedDate}</p>
+      {documentToReactComponents(props.data.contentfulBlogPost.body.json, options)}
+    </Layout>
+  )
+}
+
+export default Blog
