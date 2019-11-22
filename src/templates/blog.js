@@ -3,10 +3,12 @@ import { graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "../components/head"
 import Layout from "../components/layout"
+import Disqus from 'disqus-react';
 
 export const query = graphql`
   query($slug: String!) {
     contentfulBlogPost(slug: { eq: $slug }) {
+      id
       title
       publishedDate(formatString: "MMMM Do, YYYY")
       body {
@@ -26,13 +28,21 @@ const Blog = props => {
       }
     }
   }
-
+  const disqusShortname = 'project-txs2q54no9';
+  const disqusConfig = {
+    url: window.location.href,
+    identifier: props.data.contentfulBlogPost.id,
+    title: props.data.contentfulBlogPost.title,
+  };
   return (
     <Layout>
-      <Head title={props.data.contentfulBlogPost.title}/>
+      <Head title={props.data.contentfulBlogPost.title} />
       <h1>{props.data.contentfulBlogPost.title}</h1>
       <p>{props.data.contentfulBlogPost.publishedDate}</p>
       {documentToReactComponents(props.data.contentfulBlogPost.body.json, options)}
+      <div>
+        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+      </div>
     </Layout>
   )
 }
