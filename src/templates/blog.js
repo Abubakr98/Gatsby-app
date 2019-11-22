@@ -28,9 +28,9 @@ const Blog = props => {
       }
     }
   }
-  const disqusShortname = 'project-txs2q54no9';
+  const disqusShortname = 'project-txs2q54no9'; 
   const disqusConfig = {
-    url: window.location.href,
+    url: props.location.href,
     identifier: props.data.contentfulBlogPost.id,
     title: props.data.contentfulBlogPost.title,
   };
