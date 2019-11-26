@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
 // import "./header.module.scss"
+import NavLink from '../NavLink/index'
 import headerStyles from "./header.module.scss"
 
 const Header = () => {
@@ -17,9 +18,9 @@ const Header = () => {
   const categories = data.allContentfulCategory.nodes.map((el, i)=>{
     return(
       <li key={i}>
-      <Link  className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={"/blog/" + el.slug}>
+      <NavLink  className={headerStyles.navItem}  to={"/blog/" + el.slug}>
         {el.categoryType}
-      </Link>
+      </NavLink>
     </li>
     )
   })

@@ -21,7 +21,7 @@ query($slug: String!) {
   }
 `
 
-const BlogPage = (props) => {
+const BlogPage = (props) => { 
   const post = props.data.allContentfulBlogPost.nodes.map((el, i) => {
     return (
       <li key={i} className={blogStyles.post}>
@@ -36,7 +36,7 @@ const BlogPage = (props) => {
     <Layout>
       <Head title="Blog" />
       <h1>Blog</h1>
-      <BlogHeader></BlogHeader>
+      <BlogHeader/>
       <ol className={blogStyles.posts}>{post}</ol>
     </Layout>
   )

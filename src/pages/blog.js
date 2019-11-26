@@ -36,7 +36,7 @@ const BlogPage = () => {
     <Layout>
       <Head title="Blog" />
       <h1>Blog</h1>
-      <BlogHeader></BlogHeader>
+      <BlogHeader/>
       <ol className={blogStyles.posts}>{post}</ol>
     </Layout>
   )
