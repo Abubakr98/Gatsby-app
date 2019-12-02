@@ -3,9 +3,10 @@ import { Link } from "gatsby"
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-const IndexPage = () => {
+const IndexPage = (props) => {
+ 
   return (
-    <Layout>
+    <Layout path={props.path}>
       <Head title="Home"/>
       <h1>Hello.</h1>
       <h2>Im Abubakr a programmer</h2>

@@ -3,7 +3,9 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 // import "./header.module.scss"
 import headerStyles from "./header.module.scss"
 import NavLink from '../NavLink/index'
-const Header = () => {
+import {Path} from "./layout"
+const Header = (props) => {
+  
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -14,14 +16,11 @@ const Header = () => {
     }
   `)
 
-  const active = activeName => {
-    if (window.location.pathname.indexOf(activeName)!==-1) {
-      return ` ${headerStyles.activeNavItem}`
-    }
-    return ""
-  }
   return (
     <header className={headerStyles.header}>
+      <Path.Consumer>
+       {({path})=>console.log(path)}
+      </Path.Consumer>
       <h1>
         <Link to="/" className={headerStyles.title}>
           {data.site.siteMetadata.title}
@@ -41,26 +40,28 @@ const Header = () => {
           <li>
             <NavLink
               className={headerStyles.navItem}
-              to="/blog"
+              to="/blog" 
             >
               Blog
             </NavLink>
           </li>
           <li>
-            <NavLink
+            <Link
               className={headerStyles.navItem}
               to="/about"
+              activeClassName={headerStyles.activeNavItem}
             >
               About
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
+            <Link
               className={headerStyles.navItem}
               to="/contact"
+              activeClassName={headerStyles.activeNavItem}
             >
               Contact
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </nav>

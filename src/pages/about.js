@@ -3,9 +3,9 @@ import { Link } from "gatsby"
 import Layout from '../components/layout'
 import Head from "../components/head"
 
-const AboutPage = () => {
+const AboutPage = (props) => {
   return (
-    <Layout>
+    <Layout path={props.path}>
       <Head title="About" />
       <h1>About me</h1>
       <p>Im a programmer</p>

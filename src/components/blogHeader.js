@@ -4,7 +4,9 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 import NavLink from '../NavLink/index'
 import headerStyles from "./header.module.scss"
 
-const Header = () => {
+const Header = (props) => {
+  // const ThemeContext = React.createContext('light');
+  
   const data = useStaticQuery(graphql`
     query{
       allContentfulCategory {
@@ -18,7 +20,7 @@ const Header = () => {
   const categories = data.allContentfulCategory.nodes.map((el, i)=>{
     return(
       <li key={i}>
-      <NavLink  className={headerStyles.navItem}  to={"/blog/" + el.slug}>
+      <NavLink className={headerStyles.navItem}  to={"/blog/" + el.slug}>
         {el.categoryType}
       </NavLink>
     </li>

@@ -6,9 +6,12 @@ import Head from "../components/head"
 
 import blogStyles from "../pages/blog.module.scss"
 
-export const query =  graphql`
-query($slug: String!) {
-    allContentfulBlogPost(sort: {fields: publishedDate, order: ASC}, filter: {connectedCategory: {slug: {eq: $slug}}}) {
+export const query = graphql`
+  query($slug: String!) {
+    allContentfulBlogPost(
+      sort: { fields: publishedDate, order: ASC }
+      filter: { connectedCategory: { slug: { eq: $slug } } }
+    ) {
       nodes {
         title
         slug
@@ -21,11 +24,12 @@ query($slug: String!) {
   }
 `
 
-const BlogPage = (props) => { 
+const BlogPage = props => {
+
   const post = props.data.allContentfulBlogPost.nodes.map((el, i) => {
     return (
       <li key={i} className={blogStyles.post}>
-        <Link to={"/blog/"+ el.connectedCategory.slug+'/' + el.slug}>
+        <Link to={"/blog/" + el.connectedCategory.slug + "/" + el.slug}>
           <h2>{el.title}</h2>
           <p>{el.publishedDate}</p>
         </Link>
@@ -33,10 +37,10 @@ const BlogPage = (props) => {
     )
   })
   return (
-    <Layout>
+    <Layout path={props.path}>
       <Head title="Blog" />
       <h1>Blog</h1>
-      <BlogHeader/>
+        <BlogHeader/>
       <ol className={blogStyles.posts}>{post}</ol>
     </Layout>
   )
