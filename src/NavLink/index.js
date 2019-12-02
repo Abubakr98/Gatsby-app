@@ -6,11 +6,15 @@ export default class NavLink extends Component {
 
   
   active = activeName => {
-    
-    if (window.location.pathname.indexOf(activeName)!==-1) {
-      return ` ${headerStyles.activeNavItem}`
+    try {
+      if (window.location.pathname.indexOf(activeName)!==-1) {
+        return ` ${headerStyles.activeNavItem}`
+      }
+      return ""
+    } catch (e) {
+      console.log(e)
     }
-    return ""
+   
   }
   render() {
     return <Link {...this.props} className={this.props.className+this.active(this.props.to)}/>
