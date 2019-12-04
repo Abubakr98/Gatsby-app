@@ -5,7 +5,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
   const blogTemplate = path.resolve("./src/templates/blogPost.js")
   const post = await graphql(`
     query {
-      allContentfulBlogPost {
+      allContentfulBlogPost(filter: {connectedCategory: {slug: {ne: null}}}) {
         nodes {
           slug
           connectedCategory {

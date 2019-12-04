@@ -9,7 +9,7 @@ import blogStyles from "./blog.module.scss"
 const BlogPage = props => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost(sort: { fields: publishedDate, order: ASC }) {
+      allContentfulBlogPost(sort: {fields: publishedDate, order: ASC}, filter: {connectedCategory: {slug: {ne: null}}}) {
         nodes {
           title
           slug
@@ -20,6 +20,7 @@ const BlogPage = props => {
         }
       }
     }
+    
   `)
   const post = data.allContentfulBlogPost.nodes.map((el, i) => {
     return (
