@@ -13,6 +13,7 @@ export default class NavLink extends Component {
       return ""
     } catch (e) {
       console.log(e)
+      return ""
     }
    
   }
